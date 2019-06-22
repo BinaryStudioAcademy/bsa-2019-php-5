@@ -15,6 +15,6 @@ class Math implements IMath
 
     public function damage(int $strength, int $armour): int
     {
-        return self::DAMAGE_COEFFICIENT * ($strength / $armour);
+        return ceil(self::DAMAGE_COEFFICIENT * $strength / $armour);
     }
 }

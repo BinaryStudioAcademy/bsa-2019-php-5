@@ -8,15 +8,6 @@ use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 
 class Game
 {
-    private $reader;
-    private $writer;
-    private $random;
-
-    public function __construct(Random $random)
-    {
-        $this->random = $random;
-    }
-
     public function start(Reader $reader, Writer $writer)
     {
         $writer->writeln('Your task is to develop a game "Battle Ship".');
