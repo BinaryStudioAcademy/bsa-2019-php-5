@@ -1,6 +1,6 @@
 {
-    "name": "bsa/ship.battle",
-    "description": "This is a game where ships are fought and money is earned",
+    "name": "bsa/php-task-4",
+    "description": "Hometask for object oriented design lecture. Console game",
     "type": "project",
     "require": {
         "php": ">=7.1"
