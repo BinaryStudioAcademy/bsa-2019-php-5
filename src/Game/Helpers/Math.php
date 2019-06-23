@@ -2,7 +2,8 @@
 
 namespace BinaryStudioAcademy\Game\Helpers;
 
-use BinaryStudioAcademy\Game\Contracts\Math as IMath;
+use BinaryStudioAcademy\Game\Contracts\Helpers\Math as IMath;
+use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 
 class Math implements IMath
 {
