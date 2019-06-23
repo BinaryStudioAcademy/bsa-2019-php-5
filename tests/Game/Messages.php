@@ -33,7 +33,11 @@ class Messages
             ]
         ]
     ];
-    const HARBOURS = [
+    const HARBORS = [
+        1 => [
+            'name' => 'Pirates Hardbor',
+            'ship' => 'player'
+        ],
         2 => [
             'harbor' => 'Southhampton',
             'ship' => 'schooner'
@@ -59,10 +63,6 @@ class Messages
             'ship' => 'battle'
         ],
         8 => [
-            'harbor' => 'Felixstowe',
-            'ship' => 'battle'
-        ],
-        9 => [
             'harbor' => 'London Docks',
             'ship' => 'royal'
         ]
@@ -70,19 +70,19 @@ class Messages
 
     static public function stats($data) {
         return 'Ship stats:' . PHP_EOL
-        . 'strength: ' . $data['strength'] ?: 4 . PHP_EOL
-        . 'armour: ' . $data['armour'] ?: 4 . PHP_EOL
-        . 'luck: ' . $data['luck'] ?: 4  . PHP_EOL
-        . 'health: ' . $data['health'] ?: 60   . PHP_EOL
-        . 'hold: ' . $data['hold'] ?: '[_, _, _]' . PHP_EOL;
+        . 'strength: ' . ($data['strength'] ?: 4) . PHP_EOL
+        . 'armour: ' . ($data['armour'] ?: 4) . PHP_EOL
+        . 'luck: ' . ($data['luck'] ?: 4)  . PHP_EOL
+        . 'health: ' . ($data['health'] ?: 60)   . PHP_EOL
+        . 'hold: ' . ($data['hold'] ?: '[ _ _ _ ]') . PHP_EOL;
     }
 
-    static public function harbour(int $harbourNumber)
+    static public function harbor(int $harborNumber)
     {
-        $harbour = self::HARBOURS[$harbourNumber];
-        $ship = self::SHIPS[$harbour['ship']];
+        $harbor = self::HARBORS[$harborNumber];
+        $ship = self::SHIPS[$harbor['ship']];
 
-        return "Harbor {$harbourNumber}: {$harbour['harbor']}" . PHP_EOL
+        return "Harbor {$harborNumber}: {$harbor['harbor']}." . PHP_EOL
         . "You see {$ship['name']}: " . PHP_EOL
         . 'strength: ' . $ship['stats']['strength'] . PHP_EOL
         . 'armour: ' . $ship['stats']['armour'] . PHP_EOL
@@ -95,7 +95,7 @@ class Messages
         return "{$shipName} has damaged on: {$playerDamage} points." . PHP_EOL
         . "health: {$shipHealth}" . PHP_EOL
         . "{$shipName} damaged your ship on: {$shipDamage} points." . PHP_EOL
-        . "health: {$shipHealth}" . PHP_EOL;
+        . "health: {$playerHealth}" . PHP_EOL;
     }
 
     static public function win($shipName)
@@ -115,13 +115,18 @@ class Messages
 
     static public function piratesHarbor()
     {
-        return 'Harbor 1: Pirates Hardbor.' . PHP_EOL
+        return 'Harbor 1: Pirates Harbor.' . PHP_EOL
         . 'Your health is repared to 60.' . PHP_EOL;
+    }
+
+    static public function piratesHarborWithGoodHealth()
+    {
+        return 'Harbor 1: Pirates Harbor.' . PHP_EOL;
     }
 
     static public function buy($skill, $nextValue)
     {
-        return "You\'ve bought a {$skill}. Your {$skill} is {nextValue}." . PHP_EOL;
+        return "You\'ve bought a {$skill}. Your {$skill} is {$nextValue}." . PHP_EOL;
     }
 
     static public function buyRum($nextValue)
@@ -140,6 +145,13 @@ class Messages
         . '💰💰💰 All gold and rum of Great Britain belong to you! 🍾🍾🍾';
     }
 
+    static public function whereAmI($harborNumber)
+    {
+        $harbor = self::HARBORS[$harborNumber];
+
+        return "Harbor {$harborNumber}: {$harbor['harbor']}" . PHP_EOL;
+    }
+
     static public function help()
     {
         return 'List of commands:' . PHP_EOL
@@ -150,6 +162,7 @@ class Messages
         . 'aboard - collect loot from the ship' . PHP_EOL
         . 'buy <strength|armour|luck|rum> - buys skill or rum: 1 chest of gold - 1 item' . PHP_EOL
         . 'drink - your captain drinks 1 bottle of rum and fill 30 points of health' . PHP_EOL
+        . 'whereami - shows current harbor' . PHP_EOL
         . 'exit - finishes the game' . PHP_EOL;
     }
 }
