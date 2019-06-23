@@ -165,4 +165,23 @@ class Messages
         . 'whereami - shows current harbor' . PHP_EOL
         . 'exit - finishes the game' . PHP_EOL;
     }
+
+    static public function die()
+    {
+        return "Your ship has been sunk." . PHP_EOL
+            . "You restored in the Pirate Harbor." . PHP_EOL
+            . "You lost all your possessions and 1 of each stats." . PHP_EOL;
+    }
+
+    static public function errors($key)
+    {
+        return [
+            'incorrect_direction' => 'Harbor not found in this direction',
+            'pirate_harbor_aboard' => 'There is no ship to aboard',
+            'pirate_harbor_fire' => 'There is no ship to fight',
+            'aboard_live_ship' => 'You cannot board this ship, since it has not yet sunk.',
+            'incorrect_direction_command' => "Direction 'asd' incorrect, choose from: east, west, north, south",
+            'uknown_command' => "Command 'uknown_command' not found"
+        ][$key];
+    }
 }

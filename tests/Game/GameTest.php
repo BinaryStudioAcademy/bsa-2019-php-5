@@ -73,11 +73,72 @@ class GameTest extends TestCase
                     [ 'whereami', Messages::whereAmI(2) ],
                     [ 'set-sail north', Messages::piratesHarborWithGoodHealth() ],
                     [ 'whereami', Messages::whereAmI(1) ],
+                ],
+            ],
+
+            'exceptional cases' => [
+                1.0, [
+                    [ 'set-sail east', Messages::errors('incorrect_direction') ],
+                    [ 'aboard', Messages::errors('pirate_harbor_aboard') ],
+                    [ 'fire', Messages::errors('pirate_harbor_fire') ],
+                    [ 'set-sail west', Messages::harbor(3) ],
+                    [ 'aboard', Messages::errors('aboard_live_ship') ],
+                    [ 'set-sail west', Messages::errors('incorrect_direction') ],
+                    [ 'set-sail asd', Messages::errors('incorrect_direction_command') ],
+                    [ 'uknown_command', Messages::errors('uknown_command') ],
+                ]
+            ],
+
+            'loose battle' => [
+                1.0, [
+                    [ 'set-sail south', Messages::harbor(2) ],
+                    [
+                        'fire', Messages::fire(
+                            'Royal Patrool Schooner',
+                            10, 40, 10, 50
+                        )
+                    ],
+                    [
+                        'fire', Messages::fire(
+                            'Royal Patrool Schooner',
+                            10, 30, 10, 40    
+                        )
+                    ],
+                    [
+                        'fire', Messages::fire(
+                            'Royal Patrool Schooner',
+                            10, 20, 10, 30
+                        )
+                    ],
+                    [
+                        'fire', Messages::fire(
+                            'Royal Patrool Schooner',
+                            10, 10, 10, 20
+                        )
+                    ],
+                    [
+                        'fire', Messages::win('Royal Patrool Schooner')
+                    ],
+                    [
+                        'aboard', Messages::aboardSchooner()
+                    ],
+                    [ 'set-sail east', Messages::harbor(7) ],
+                    [ 'set-sail east', Messages::harbor(8) ],
+                    [
+                        'fire', Messages::die()
+                    ],
+                    [ 'whereami', Messages::whereAmI(1) ],
+                    [
+                        'stats', Messages::stats([
+                            'strength' => 3,
+                            'armour' => 3,
+                            'luck' => 3,
+                            'health' => 60,
+                            'hold' => '[ _ _ _ ]'
+                        ])
+                    ],
                 ]
             ]
-
-            // to do: write test on loose battle
-            // to do: write test on generating stats by probability
         ];
     }
 
