@@ -52,6 +52,9 @@ class GameTest extends TestCase
                 1.0,
                 $this->getWinCommands()
             ]
+
+            // to do: write test on loose battle
+            // to do: write test on generating stats by probability
         ];
     }
 
