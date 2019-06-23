@@ -23,7 +23,7 @@ class GameTest extends TestCase
         foreach ($commands as [ $command, $expectedOutput]) {
             $output = $gameTester->run($command);
             
-            $this->assertContains($output, $expectedOutput);
+            $this->assertStringContainsString(trim($expectedOutput), trim($output));
         }
     }
 
@@ -51,6 +51,29 @@ class GameTest extends TestCase
             'win commands' => [
                 1.0,
                 $this->getWinCommands()
+            ],
+            'walk through map' => [
+                1.0,
+                [
+                    [ 'set-sail south', Messages::harbor(2) ],
+                    [ 'whereami', Messages::whereAmI(2) ],
+                    [ 'set-sail west', Messages::harbor(3) ],
+                    [ 'whereami', Messages::whereAmI(3) ],
+                    [ 'set-sail north', Messages::whereAmI(4) ],
+                    [ 'whereami', Messages::whereAmI(4) ],
+                    [ 'set-sail east', Messages::harbor(5) ],
+                    [ 'whereami', Messages::whereAmI(5) ],
+                    [ 'set-sail east', Messages::harbor(6) ],
+                    [ 'whereami', Messages::whereAmI(6) ],
+                    [ 'set-sail south', Messages::harbor(8) ],
+                    [ 'whereami', Messages::whereAmI(8) ],
+                    [ 'set-sail west', Messages::harbor(7) ],
+                    [ 'whereami', Messages::whereAmI(7) ],
+                    [ 'set-sail west', Messages::harbor(2) ],
+                    [ 'whereami', Messages::whereAmI(2) ],
+                    [ 'set-sail north', Messages::piratesHarborWithGoodHealth() ],
+                    [ 'whereami', Messages::whereAmI(1) ],
+                ]
             ]
 
             // to do: write test on loose battle
@@ -62,7 +85,7 @@ class GameTest extends TestCase
     {
         $firstBattle = [
             [
-                'set-sail south', Messages::harbour(2)
+                'set-sail south', Messages::harbor(2)
             ],
             [
                 'fire', Messages::fire(
@@ -97,30 +120,24 @@ class GameTest extends TestCase
         ];
         $secondBattle = [
             [
-                'set-sail west', Messages::harbour(3)
+                'set-sail west', Messages::harbor(3)
             ],
             [
                 'fire', Messages::fire(
                     'Royal Patrool Schooner',
-                    12, 38, 10, 50
+                    13, 37, 10, 50
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Patrool Schooner',
-                    12, 26, 10, 40
+                    13, 24, 10, 40
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Patrool Schooner',
-                    12, 14, 10, 30
-                )
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Patrool Schooner',
-                    12, 2, 10, 20
+                    13, 11, 10, 30
                 )
             ],
             [
@@ -138,7 +155,7 @@ class GameTest extends TestCase
         ];
         $thirdBattle = [
             [
-                'set-sail north', Messages::harbour(4)
+                'set-sail north', Messages::harbor(4)
             ],
             [
                 'fire', Messages::fire(
@@ -173,7 +190,7 @@ class GameTest extends TestCase
         ];
         $fourthBattle = [
             [
-                'set-sail north', Messages::harbour(4)
+                'set-sail north', Messages::harbor(4)
             ],
             [
                 'fire', Messages::fire(
@@ -202,7 +219,7 @@ class GameTest extends TestCase
         ];
         $fifthBattle = [
             [
-                'set-sail south', Messages::harbour(2)
+                'set-sail south', Messages::harbor(2)
             ],
             [
                 'fire', Messages::fire(
@@ -225,7 +242,7 @@ class GameTest extends TestCase
         ];
         $sixthBattle = [
             [
-                'set-sail west', Messages::harbour(3)
+                'set-sail west', Messages::harbor(3)
             ],
             [
                 'fire', Messages::fire(
@@ -257,7 +274,7 @@ class GameTest extends TestCase
         ];
         $seventhBattle = [
             [
-                'set-sail north', Messages::harbour(4)
+                'set-sail north', Messages::harbor(4)
             ],
             [
                 'fire', Messages::fire(
@@ -274,7 +291,7 @@ class GameTest extends TestCase
 
             // west
             [
-                'set-sail west', Messages::harbour(3)
+                'set-sail west', Messages::harbor(3)
             ],
             [
                 'fire', Messages::fire(
@@ -291,7 +308,7 @@ class GameTest extends TestCase
 
             // south
             [
-                'set-sail south', Messages::harbour(2)
+                'set-sail south', Messages::harbor(2)
             ],
             [
                 'fire', Messages::fire(
@@ -313,7 +330,7 @@ class GameTest extends TestCase
                     'strength' => 10,
                     'armour' => 4,
                     'luck' => 4,
-                    'health' => 30,
+                    'health' => 60,
                     'hold' => '[ 💰 💰 💰 ]'
                 ])
             ],
@@ -329,7 +346,7 @@ class GameTest extends TestCase
         ];
         $eightthBattle = [
             [
-                'set-sail north', Messages::harbour(4)
+                'set-sail north', Messages::harbor(4)
             ],
             [
                 'fire', Messages::fire(
@@ -346,7 +363,7 @@ class GameTest extends TestCase
 
             // east
             [
-                'set-sail east', Messages::harbour(5)
+                'set-sail east', Messages::harbor(5)
             ],
             [
                 'fire', Messages::fire(
@@ -363,7 +380,7 @@ class GameTest extends TestCase
 
             // west
             [
-                'set-sail west', Messages::harbour(4)
+                'set-sail west', Messages::harbor(4)
             ],
             [
                 'fire', Messages::fire(
@@ -393,7 +410,7 @@ class GameTest extends TestCase
         $royalBattle1 = [
             // south
             [
-                'set-sail south', Messages::harbour(2)
+                'set-sail south', Messages::harbor(2)
             ],
             [
                 'fire', Messages::fire(
@@ -409,7 +426,7 @@ class GameTest extends TestCase
             ],
             // east
             [
-                'set-sail east', Messages::harbour(7)
+                'set-sail east', Messages::harbor(7)
             ],
             [
                 'fire', Messages::fire(
@@ -458,7 +475,7 @@ class GameTest extends TestCase
             ],
             // west
             [
-                'set-sail west', Messages::harbour(2)
+                'set-sail west', Messages::harbor(2)
             ],
             [
                 'fire', Messages::fire(
@@ -482,16 +499,108 @@ class GameTest extends TestCase
                 'buy rum', Messages::buyRum(2)
             ],
             [
-                'drink', Messages::drink(64)
-            ],
-            [
-                'drink', Messages::drink(94)
+                'drink', Messages::drink(90)
             ]
         ];
         $royalBattle2 = [
             // south
             [
-                'set-sail south', Messages::harbour(2)
+                'set-sail south', Messages::harbor(2)
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Patrool Schooner',
+                    25, 25, 4, 86
+                )
+            ],
+            [
+                'fire', Messages::win('Royal Patrool Schooner')
+            ],
+            [
+                'aboard', Messages::aboardSchooner()
+            ],
+            // east
+            [
+                'set-sail east', Messages::harbor(7)
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Battle Ship',
+                    13, 67, 8, 78
+                )
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Battle Ship',
+                    13, 54, 8, 70
+                )
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Battle Ship',
+                    13, 41, 8, 62
+                )
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Battle Ship',
+                    13, 28, 8, 54
+                )
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Battle Ship',
+                    13, 15, 8, 46
+                )
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Battle Ship',
+                    13, 2, 8, 38
+                )
+            ],
+            [
+                'fire', Messages::win('Royal Battle Ship')
+            ],
+            [
+                'aboard', Messages::aboardBattleShip()
+            ],
+            [
+                'drink', Messages::drink(68)
+            ],
+            // west
+            [
+                'set-sail west', Messages::harbor(2)
+            ],
+            [
+                'fire', Messages::fire(
+                    'Royal Patrool Schooner',
+                    25, 25, 4, 64
+                )
+            ],
+            [
+                'fire', Messages::win('Royal Patrool Schooner')
+            ],
+            [
+                'aboard', Messages::aboardSchooner()
+            ],
+            [
+                'set-sail north', Messages::piratesHarborWithGoodHealth()
+            ],
+            [
+                'buy rum', Messages::buyRum(2)
+            ],
+            [
+                'buy rum', Messages::buyRum(3)
+            ],
+            [
+                'drink', Messages::drink(94)
+            ]
+        ];
+        $royalBattle3 = [
+            // north
+            [
+                'set-sail north', Messages::harbor(4)
             ],
             [
                 'fire', Messages::fire(
@@ -502,152 +611,60 @@ class GameTest extends TestCase
             [
                 'fire', Messages::win('Royal Patrool Schooner')
             ],
-            [
-                'aboard', Messages::aboardSchooner()
-            ],
             // east
             [
-                'set-sail east', Messages::harbour(7)
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Battle Ship',
-                    13, 67, 8, 82
-                )
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Battle Ship',
-                    13, 54, 8, 74
-                )
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Battle Ship',
-                    13, 41, 8, 66
-                )
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Battle Ship',
-                    13, 28, 8, 66
-                )
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Battle Ship',
-                    13, 15, 8, 58
-                )
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Battle Ship',
-                    13, 2, 8, 50
-                )
-            ],
-            [
-                'fire', Messages::win('Royal Battle Ship')
-            ],
-            [
-                'aboard', Messages::aboardBattleShip()
-            ],
-            // west
-            [
-                'set-sail west', Messages::harbour(2)
+                'set-sail east', Messages::harbor(5)
             ],
             [
                 'fire', Messages::fire(
                     'Royal Patrool Schooner',
-                    25, 25, 4, 46
+                    25, 25, 4, 86
                 )
             ],
             [
                 'fire', Messages::win('Royal Patrool Schooner')
             ],
             [
-                'aboard', Messages::aboardSchooner()
-            ],
-            [
-                'set-sail north', Messages::piratesHarbor()
-            ],
-            [
-                'buy rum', Messages::buyRum(2)
-            ],
-            [
-                'buy rum', Messages::buyRum(3)
-            ],
-            [
-                'drink', Messages::drink(76)
-            ]
-        ];
-        $royalBattle3 = [
-            // north
-            [
-                'set-sail north', Messages::harbour(4)
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Patrool Schooner',
-                    25, 25, 4, 72
-                )
-            ],
-            [
-                'fire', Messages::win('Royal Patrool Schooner')
+                'drink', Messages::drink(100)
             ],
             // east
             [
-                'set-sail north', Messages::harbour(5)
-            ],
-            [
-                'fire', Messages::fire(
-                    'Royal Patrool Schooner',
-                    25, 25, 4, 68
-                )
-            ],
-            [
-                'fire', Messages::win('Royal Patrool Schooner')
-            ],
-            [
-                'drink', Messages::drink(98)
-            ],
-            // east
-            [
-                'set-sail east', Messages::harbour(6)
+                'set-sail east', Messages::harbor(6)
             ],
             [
                 'fire', Messages::fire(
                     'Royal Battle Ship',
-                    13, 67, 8, 90
+                    13, 67, 8, 92
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Battle Ship',
-                    13, 54, 8, 82
+                    13, 54, 8, 84
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Battle Ship',
-                    13, 41, 8, 74
+                    13, 41, 8, 76
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Battle Ship',
-                    13, 28, 8, 66
+                    13, 28, 8, 68
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Battle Ship',
-                    13, 15, 8, 58
+                    13, 15, 8, 60
                 )
             ],
             [
                 'fire', Messages::fire(
                     'Royal Battle Ship',
-                    13, 2, 8, 50
+                    13, 2, 8, 52
                 )
             ],
             [
@@ -661,12 +678,12 @@ class GameTest extends TestCase
                     'strength' => 10,
                     'armour' => 10,
                     'luck' => 4,
-                    'health' => 50,
+                    'health' => 52,
                     'hold' => '[ 🍾 🍾 _ ]'
                 ])
             ],
             [
-                'drink', Messages::drink(80)
+                'drink', Messages::drink(82)
             ],
             [
                 'drink', Messages::drink(100)
@@ -684,7 +701,7 @@ class GameTest extends TestCase
         $finalBattle = [
             // north
             [
-                'set-sail south', Messages::harbour(8)
+                'set-sail south', Messages::harbor(8)
             ],
             [
                 'fire', Messages::fire(
@@ -782,8 +799,8 @@ class GameTest extends TestCase
                         'health' => 60,
                         'hold' => '[ _ _ _ ]'
                     ])
-                ],
-            ], 
+                ]
+            ],
             // west
             $secondBattle,
             // north
