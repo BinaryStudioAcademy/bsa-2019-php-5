@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  php:
+    build:
+      dockerfile: .docker/xdebug/Dockerfile
+      context: .
+    environment:
+      XDEBUG_CONFIG: "remote_host=10.0.2.2 remote_port=9000 remote_log=/app/xdebug.log"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - 9000:9000
+  composer:
+    image: composer:latest
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ./.composer:/composer
