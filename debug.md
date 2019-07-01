@@ -62,3 +62,9 @@ docker-compose run --rm php php /app/game.php
 In the root you will find `xdebug.log` that contains errors of xdebug in container.
 
 In the "Debug console" of VS Code (Ctrl + Shift + Y) you will find log of local debugger.
+
+If you use Virtual Box for your docker-machine you will need to forward ports in the settings to your virtual machine.
+
+![](misc/vb.png)
+
+If volumes are not forwarded to container (folder /app/ is empty inside the container) try to move your project on system disk in the user directory (e.g. c:\Users\\<username\>\\).
