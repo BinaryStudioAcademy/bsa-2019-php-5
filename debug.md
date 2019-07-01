@@ -1,0 +1,64 @@
+## How to set up XDebug in VS Code
+
+1. First of all you need to install "PHP Debug" extension for VS Code.
+
+    Go to extensions -> type "PHP Debug" -> Install
+
+2. Change in [docker-compose.yml](docker-compose.yml) parameter `remote_host`:
+
+    Windows: `10.0.2.2` or `host.docker.internal`
+
+    Linux\Mac: `0.0.0.0`
+
+3. Set up debugger in VS Code (`launch.json`). Config should look like this:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "log": true,
+            "hostname": "127.0.0.1",
+            "port": 9000,
+            "pathMappings": {
+                "/app": "${workspaceFolder}"
+            },
+            "xdebugSettings": {
+                "max_data": 65535,
+                "show_hidden": 1,
+                "max_children": 100,
+                "max_depth": 5
+            }
+        }
+    ]
+}
+```
+![debugger](misc/debugger.png)
+
+4. Build container:
+
+```bash
+docker-compose build
+```
+
+5. Run debugger:
+
+![run](misc/run.png)
+
+6. Set breakpoint in the editor and run script in a container:
+
+```bash
+docker-compose run --rm php php /app/game.php
+```
+
+![breakpoint](misc/breakpoint.png)
+
+
+### Troubleshooting:
+
+In the root you will find `xdebug.log` that contains errors of xdebug in container.
+
+In the "Debug console" of VS Code (Ctrl + Shift + Y) you will find log of local debugger.
