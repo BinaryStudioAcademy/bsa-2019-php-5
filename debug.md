@@ -7,9 +7,9 @@
 2. Change in [docker-compose.yml](docker-compose.yml) parameter `remote_host` in order to xdebug from container could connect to your host machine.
     It is IP address of your host machine inside container.
 
-    For Windows it can be `10.0.2.2`. For Mac and Windows also should work `host.docker.internal`.
+    Windows: it can be `10.0.2.2`. For Mac and Windows also should work `host.docker.internal`. If it didn't help you could try `docker-machine ssh default` (instead default can be name of docker machine) and see in log IP.
 
-    Linux: run `ip addr show | grep docker0` or `ifconfig` and find IP address of your container.
+    Linux: run `ip addr show | grep docker0` or `ifconfig` and find IP address of your container. Usually it looks like `172.17.0.1`.
     
     Also, you can try to run `docker network inspect bridge` and find host address here.
 
