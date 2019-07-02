@@ -20,5 +20,6 @@ class StringReader implements Reader
 
     public function getStream()
     {
+        throw new \LogicException('No stream for string.');
     }
 }

@@ -8,6 +8,6 @@ class Random implements IRandom
 {
     public function get(): float
     {
-        return rand() / getrandmax();
+        return mt_rand() / mt_getrandmax();
     }
 }

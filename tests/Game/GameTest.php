@@ -5,33 +5,31 @@ namespace BinaryStudioAcademyTests\Game;
 use PHPUnit\Framework\TestCase;
 use BinaryStudioAcademy\Game\Game;
 use BinaryStudioAcademyTests\Stubs\StableRandom;
-use BinaryStudioAcademyTests\Game\GameTester;
-use BinaryStudioAcademyTests\Game\Messages;
 
-class GameTest extends TestCase
+final class GameTest extends TestCase
 {
     /**
-     * @dataProvider additionProvider
+     * @dataProvider gameFlowProvider
      */
-    public function test_game(float $probability, array $commands)
+    public function test_game(array $commands): void
     {
         $game = new Game(
             new StableRandom(1.0)
         );
+
         $gameTester = new GameTester($game);
 
         foreach ($commands as [ $command, $expectedOutput]) {
             $output = $gameTester->run($command);
-            
+
             $this->assertStringContainsString(trim($expectedOutput), trim($output));
         }
     }
 
-    public function additionProvider()
+    public function gameFlowProvider(): array
     {
         return [
             'basic commands' => [
-                1.0, 
                 [
                     [
                         'help',
@@ -48,50 +46,104 @@ class GameTest extends TestCase
                     ]
                 ]
             ],
+
             'win commands' => [
-                1.0,
                 $this->getWinCommands()
             ],
+
             'walk through map' => [
-                1.0,
                 [
-                    [ 'set-sail south', Messages::harbor(2) ],
-                    [ 'whereami', Messages::whereAmI(2) ],
-                    [ 'set-sail west', Messages::harbor(3) ],
-                    [ 'whereami', Messages::whereAmI(3) ],
-                    [ 'set-sail north', Messages::whereAmI(4) ],
-                    [ 'whereami', Messages::whereAmI(4) ],
-                    [ 'set-sail east', Messages::harbor(5) ],
-                    [ 'whereami', Messages::whereAmI(5) ],
-                    [ 'set-sail east', Messages::harbor(6) ],
-                    [ 'whereami', Messages::whereAmI(6) ],
-                    [ 'set-sail south', Messages::harbor(8) ],
-                    [ 'whereami', Messages::whereAmI(8) ],
-                    [ 'set-sail west', Messages::harbor(7) ],
-                    [ 'whereami', Messages::whereAmI(7) ],
-                    [ 'set-sail west', Messages::harbor(2) ],
-                    [ 'whereami', Messages::whereAmI(2) ],
-                    [ 'set-sail north', Messages::piratesHarborWithGoodHealth() ],
-                    [ 'whereami', Messages::whereAmI(1) ],
+                    [
+                        'set-sail south', Messages::harbor(2)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(2)
+                    ],
+                    [
+                        'set-sail west', Messages::harbor(3)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(3)
+                    ],
+                    [
+                        'set-sail north', Messages::whereAmI(4)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(4)
+                    ],
+                    [
+                        'set-sail east', Messages::harbor(5)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(5)
+                    ],
+                    [
+                        'set-sail east', Messages::harbor(6)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(6)
+                    ],
+                    [
+                        'set-sail south', Messages::harbor(8)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(8)
+                    ],
+                    [
+                        'set-sail west', Messages::harbor(7)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(7)
+                    ],
+                    [
+                        'set-sail west', Messages::harbor(2)
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(2)
+                    ],
+                    [
+                        'set-sail north', Messages::piratesHarborWithGoodHealth()
+                    ],
+                    [
+                        'whereami', Messages::whereAmI(1)
+                    ],
                 ],
             ],
 
             'exceptional cases' => [
-                1.0, [
-                    [ 'set-sail east', Messages::errors('incorrect_direction') ],
-                    [ 'aboard', Messages::errors('pirate_harbor_aboard') ],
-                    [ 'fire', Messages::errors('pirate_harbor_fire') ],
-                    [ 'set-sail west', Messages::harbor(3) ],
-                    [ 'aboard', Messages::errors('aboard_live_ship') ],
-                    [ 'set-sail west', Messages::errors('incorrect_direction') ],
-                    [ 'set-sail asd', Messages::errors('incorrect_direction_command') ],
-                    [ 'uknown_command', Messages::errors('uknown_command') ],
+                [
+                    [
+                        'set-sail east', Messages::errors('incorrect_direction')
+                    ],
+                    [
+                        'aboard', Messages::errors('pirate_harbor_aboard')
+                    ],
+                    [
+                        'fire', Messages::errors('pirate_harbor_fire')
+                    ],
+                    [
+                        'set-sail west', Messages::harbor(3)
+                    ],
+                    [
+                        'aboard', Messages::errors('aboard_live_ship')
+                    ],
+                    [
+                        'set-sail west', Messages::errors('incorrect_direction')
+                    ],
+                    [
+                        'set-sail asd', Messages::errors('incorrect_direction_command')
+                    ],
+                    [
+                        'unknown_command', Messages::errors('unknown_command')
+                    ],
                 ]
             ],
 
             'loose battle' => [
-                1.0, [
-                    [ 'set-sail south', Messages::harbor(2) ],
+                [
+                    [
+                        'set-sail south', Messages::harbor(2)
+                    ],
                     [
                         'fire', Messages::fire(
                             'Royal Patrool Schooner',
@@ -101,7 +153,7 @@ class GameTest extends TestCase
                     [
                         'fire', Messages::fire(
                             'Royal Patrool Schooner',
-                            10, 30, 10, 40    
+                            10, 30, 10, 40
                         )
                     ],
                     [
@@ -122,12 +174,18 @@ class GameTest extends TestCase
                     [
                         'aboard', Messages::aboardSchooner()
                     ],
-                    [ 'set-sail east', Messages::harbor(7) ],
-                    [ 'set-sail east', Messages::harbor(8) ],
+                    [
+                        'set-sail east', Messages::harbor(7)
+                    ],
+                    [
+                        'set-sail east', Messages::harbor(8)
+                    ],
                     [
                         'fire', Messages::die()
                     ],
-                    [ 'whereami', Messages::whereAmI(1) ],
+                    [
+                        'whereami', Messages::whereAmI(1)
+                    ],
                     [
                         'stats', Messages::stats([
                             'strength' => 3,
@@ -157,7 +215,7 @@ class GameTest extends TestCase
             [
                 'fire', Messages::fire(
                     'Royal Patrool Schooner',
-                    10, 30, 10, 40    
+                    10, 30, 10, 40
                 )
             ],
             [
@@ -179,6 +237,7 @@ class GameTest extends TestCase
                 'aboard', Messages::aboardSchooner()
             ],
         ];
+
         $secondBattle = [
             [
                 'set-sail west', Messages::harbor(3)
@@ -214,6 +273,7 @@ class GameTest extends TestCase
                 'buy strength', Messages::buy('strength', 6)
             ],
         ];
+
         $thirdBattle = [
             [
                 'set-sail north', Messages::harbor(4)
@@ -249,6 +309,7 @@ class GameTest extends TestCase
                 'buy strength', Messages::buy('strength', 7)
             ],
         ];
+
         $fourthBattle = [
             [
                 'set-sail north', Messages::harbor(4)
@@ -278,6 +339,7 @@ class GameTest extends TestCase
                 'buy strength', Messages::buy('strength', 8)
             ],
         ];
+
         $fifthBattle = [
             [
                 'set-sail south', Messages::harbor(2)
@@ -301,6 +363,7 @@ class GameTest extends TestCase
                 'aboard', Messages::aboardSchooner()
             ],
         ];
+
         $sixthBattle = [
             [
                 'set-sail west', Messages::harbor(3)
@@ -333,6 +396,7 @@ class GameTest extends TestCase
                 'buy strength', Messages::buy('strength', 10)
             ],
         ];
+
         $seventhBattle = [
             [
                 'set-sail north', Messages::harbor(4)
@@ -405,6 +469,7 @@ class GameTest extends TestCase
                 'buy armour', Messages::buy('armour', 7)
             ],
         ];
+
         $eightthBattle = [
             [
                 'set-sail north', Messages::harbor(4)
@@ -468,6 +533,7 @@ class GameTest extends TestCase
                 'buy armour', Messages::buy('armour', 10)
             ],
         ];
+
         $royalBattle1 = [
             // south
             [
@@ -563,6 +629,7 @@ class GameTest extends TestCase
                 'drink', Messages::drink(90)
             ]
         ];
+
         $royalBattle2 = [
             // south
             [
@@ -658,6 +725,7 @@ class GameTest extends TestCase
                 'drink', Messages::drink(94)
             ]
         ];
+
         $royalBattle3 = [
             // north
             [
@@ -759,6 +827,7 @@ class GameTest extends TestCase
                 ])
             ],
         ];
+
         $finalBattle = [
             // north
             [
@@ -823,7 +892,9 @@ class GameTest extends TestCase
             ],
         ];
 
-        return array_merge([
+        return array_merge(
+            [
+                // @todo move to default stats $var
                 [
                     'stats', Messages::stats([
                         'strength' => 4,

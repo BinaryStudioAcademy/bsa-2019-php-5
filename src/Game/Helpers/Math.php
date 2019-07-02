@@ -7,7 +7,7 @@ use BinaryStudioAcademy\Game\Contracts\Helpers\Random;
 
 class Math implements IMath
 {
-    const DAMAGE_COEFFICIENT = 10;
+    private const DAMAGE_COEFFICIENT = 10;
 
     public function luck(Random $random, int $luck): bool
     {

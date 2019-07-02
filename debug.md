@@ -60,6 +60,25 @@ docker-compose run --rm php php /app/game.php
 
 ![breakpoint](misc/breakpoint.png)
 
+## How to set up XDebug in PHPStorm
+
+1. Setup remote CLI interpreter in settings
+
+![](misc/phpstorm-setup-settings.png)
+
+![](misc/phpstorm-cli-interpreter.png)
+
+2. Create a game.php debug script
+
+![](misc/phpstorm-debug-config.png)
+
+3. Set some breakpoint in the game.php
+
+![](misc/phpstorm-breakpoint.png)
+
+6. Start debug script.
+
+![](misc/phpstorm-debug-start.png)
 
 ### Troubleshooting:
 
