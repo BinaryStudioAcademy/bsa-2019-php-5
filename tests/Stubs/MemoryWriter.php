@@ -13,12 +13,12 @@ class MemoryWriter implements Writer
         $this->stream = fopen('php://memory', 'w', false);
     }
 
-    public function write(string $string)
+    public function write(string $string): void
     {
         fputs($this->stream, $string);
     }
 
-    public function writeln(string $string)
+    public function writeln(string $string): void
     {
         fputs($this->stream, $string . PHP_EOL);
     }

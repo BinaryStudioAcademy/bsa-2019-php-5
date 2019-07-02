@@ -2,7 +2,7 @@
 
 namespace BinaryStudioAcademyTests\Game;
 
-class Messages
+final class Messages
 {
     const SHIPS = [
         'schooner' => [
@@ -33,6 +33,7 @@ class Messages
             ]
         ]
     ];
+
     const HARBORS = [
         1 => [
             'name' => 'Pirates Hardbor',
@@ -68,7 +69,8 @@ class Messages
         ]
     ];
 
-    static public function stats($data) {
+    public static function stats(array $data): string
+    {
         return 'Ship stats:' . PHP_EOL
         . 'strength: ' . ($data['strength'] ?: 4) . PHP_EOL
         . 'armour: ' . ($data['armour'] ?: 4) . PHP_EOL
@@ -77,111 +79,116 @@ class Messages
         . 'hold: ' . ($data['hold'] ?: '[ _ _ _ ]') . PHP_EOL;
     }
 
-    static public function harbor(int $harborNumber)
+    public static function harbor(int $harborNumber): string
     {
         $harbor = self::HARBORS[$harborNumber];
         $ship = self::SHIPS[$harbor['ship']];
 
         return "Harbor {$harborNumber}: {$harbor['harbor']}." . PHP_EOL
-        . "You see {$ship['name']}: " . PHP_EOL
-        . 'strength: ' . $ship['stats']['strength'] . PHP_EOL
-        . 'armour: ' . $ship['stats']['armour'] . PHP_EOL
-        . 'luck: ' . $ship['stats']['luck']  . PHP_EOL
-        . 'health: ' . $ship['stats']['health']   . PHP_EOL;
+            . "You see {$ship['name']}: " . PHP_EOL
+            . 'strength: ' . $ship['stats']['strength'] . PHP_EOL
+            . 'armour: ' . $ship['stats']['armour'] . PHP_EOL
+            . 'luck: ' . $ship['stats']['luck']  . PHP_EOL
+            . 'health: ' . $ship['stats']['health']   . PHP_EOL;
     }
 
-    static public function fire($shipName, $playerDamage, $shipHealth, $shipDamage, $playerHealth)
-    {
+    public static function fire(
+        string $shipName,
+        int $playerDamage,
+        int $shipHealth,
+        int $shipDamage,
+        int $playerHealth
+    ): string {
         return "{$shipName} has damaged on: {$playerDamage} points." . PHP_EOL
-        . "health: {$shipHealth}" . PHP_EOL
-        . "{$shipName} damaged your ship on: {$shipDamage} points." . PHP_EOL
-        . "health: {$playerHealth}" . PHP_EOL;
+            . "health: {$shipHealth}" . PHP_EOL
+            . "{$shipName} damaged your ship on: {$shipDamage} points." . PHP_EOL
+            . "health: {$playerHealth}" . PHP_EOL;
     }
 
-    static public function win($shipName)
+    public static function win(string $shipName): string
     {
         return "{$shipName} on fire. Take it to the boarding." . PHP_EOL;
     }
 
-    static public function aboardSchooner()
+    public static function aboardSchooner(): string
     {
         return 'You got 💰.' . PHP_EOL;
     }
 
-    static public function aboardBattleShip()
+    public static function aboardBattleShip(): string
     {
         return 'You got 🍾.' . PHP_EOL;
     }
 
-    static public function piratesHarbor()
+    public static function piratesHarbor(): string
     {
         return 'Harbor 1: Pirates Harbor.' . PHP_EOL
-        . 'Your health is repared to 60.' . PHP_EOL;
+            . 'Your health is repared to 60.' . PHP_EOL;
     }
 
-    static public function piratesHarborWithGoodHealth()
+    public static function piratesHarborWithGoodHealth(): string
     {
         return 'Harbor 1: Pirates Harbor.' . PHP_EOL;
     }
 
-    static public function buy($skill, $nextValue)
+    public static function buy(string $skill, int $nextValue): string
     {
         return "You\'ve bought a {$skill}. Your {$skill} is {$nextValue}." . PHP_EOL;
     }
 
-    static public function buyRum($nextValue)
+    public static function buyRum(int $nextValue): string
     {
         return "You\'ve bought a rum. Your hold contains {$nextValue} bottle(s) of rum." . PHP_EOL;
     }
 
-    static public function drink($health)
+    public static function drink($health): string
     {
         return "You\'ve drunk a rum and your health filled to {$health}";
     }
 
-    static public function finalWin()
+    public static function finalWin(): string
     {
         return '🎉🎉🎉Congratulations🎉🎉🎉' . PHP_EOL
-        . '💰💰💰 All gold and rum of Great Britain belong to you! 🍾🍾🍾';
+            . '💰💰💰 All gold and rum of Great Britain belong to you! 🍾🍾🍾';
     }
 
-    static public function whereAmI($harborNumber)
+    public static function whereAmI(int $harborNumber): string
     {
         $harbor = self::HARBORS[$harborNumber];
 
         return "Harbor {$harborNumber}: {$harbor['harbor']}" . PHP_EOL;
     }
 
-    static public function help()
+    public static function help(): string
     {
         return 'List of commands:' . PHP_EOL
-        . 'help - shows this list of commands' . PHP_EOL
-        . 'stats - shows stats of ship' . PHP_EOL
-        . 'set-sail <east|west|north|south> - moves in given direction' . PHP_EOL
-        . 'fire - attacks enemy\'s ship' . PHP_EOL
-        . 'aboard - collect loot from the ship' . PHP_EOL
-        . 'buy <strength|armour|luck|rum> - buys skill or rum: 1 chest of gold - 1 item' . PHP_EOL
-        . 'drink - your captain drinks 1 bottle of rum and fill 30 points of health' . PHP_EOL
-        . 'whereami - shows current harbor' . PHP_EOL
-        . 'exit - finishes the game' . PHP_EOL;
+            . 'help - shows this list of commands' . PHP_EOL
+            . 'stats - shows stats of ship' . PHP_EOL
+            . 'set-sail <east|west|north|south> - moves in given direction' . PHP_EOL
+            . 'fire - attacks enemy\'s ship' . PHP_EOL
+            . 'aboard - collect loot from the ship' . PHP_EOL
+            . 'buy <strength|armour|luck|rum> - buys skill or rum: 1 chest of gold - 1 item' . PHP_EOL
+            . 'drink - your captain drinks 1 bottle of rum and fill 30 points of health' . PHP_EOL
+            . 'whereami - shows current harbor' . PHP_EOL
+            . 'exit - finishes the game' . PHP_EOL;
     }
 
-    static public function die()
+    public static function die(): string
     {
         return "Your ship has been sunk." . PHP_EOL
             . "You restored in the Pirate Harbor." . PHP_EOL
             . "You lost all your possessions and 1 of each stats." . PHP_EOL;
     }
 
-    static public function errors($key)
+    public static function errors(string $key): string
     {
         return [
             'incorrect_direction' => 'Harbor not found in this direction',
             'pirate_harbor_aboard' => 'There is no ship to aboard',
             'pirate_harbor_fire' => 'There is no ship to fight',
-            'aboard_live_ship' => 'You cannot board this ship, since it has not yet sunk.',
+            'aboard_live_ship' => 'You cannot board this ship, since it has not yet sunk',
             'incorrect_direction_command' => "Direction 'asd' incorrect, choose from: east, west, north, south",
-            'uknown_command' => "Command 'uknown_command' not found"
+            'unknown_command' => "Command 'unknown_command' not found"
         ][$key];
     }
 }

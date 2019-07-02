@@ -6,7 +6,7 @@ use BinaryStudioAcademy\Game\Game;
 use BinaryStudioAcademyTests\Stubs\StringReader;
 use BinaryStudioAcademyTests\Stubs\MemoryWriter;
 
-class GameTester
+final class GameTester
 {
     private $game;
 
@@ -29,8 +29,9 @@ class GameTester
 
     private function getOutput(MemoryWriter $writer): string
     {
-        rewind($writer->getStream());
-        $output = stream_get_contents($writer->getStream());
+        $stream = $writer->getStream();
+        rewind($stream);
+        $output = stream_get_contents($stream);
 
         return $output;
     }
