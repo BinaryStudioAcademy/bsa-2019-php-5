@@ -4,11 +4,16 @@
 
     Go to extensions -> type "PHP Debug" -> Install
 
-2. Change in [docker-compose.yml](docker-compose.yml) parameter `remote_host`:
+2. Change in [docker-compose.yml](docker-compose.yml) parameter `remote_host` in order to xdebug from container could connect to your host machine.
+    It is IP address of your host machine inside container.
 
-    Windows: `10.0.2.2` or `host.docker.internal`
+    For Windows it can be `10.0.2.2`. For Mac and Windows also should work `host.docker.internal`.
 
-    Linux\Mac: `0.0.0.0`
+    Linux: run `ip addr show | grep docker0` or `ifconfig` and find IP address of your container.
+    
+    Also, you can try to run `docker network inspect bridge` and find host address here.
+
+    See: [docker container networking](https://docs.docker.com/v17.09/engine/userguide/networking/#default-networks)
 
 3. Set up debugger in VS Code (`launch.json`). Config should look like this:
 
@@ -21,7 +26,6 @@
             "type": "php",
             "request": "launch",
             "log": true,
-            "hostname": "127.0.0.1",
             "port": 9000,
             "pathMappings": {
                 "/app": "${workspaceFolder}"
