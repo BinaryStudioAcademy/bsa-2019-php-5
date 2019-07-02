@@ -11,9 +11,8 @@ final class GameTest extends TestCase
     /**
      * @dataProvider gameFlowProvider
      */
-    public function test_game(float $probability, array $commands): void
+    public function test_game(array $commands): void
     {
-        // @todo set $probability
         $game = new Game(
             new StableRandom(1.0)
         );
@@ -31,7 +30,6 @@ final class GameTest extends TestCase
     {
         return [
             'basic commands' => [
-                1.0,
                 [
                     [
                         'help',
@@ -50,12 +48,10 @@ final class GameTest extends TestCase
             ],
 
             'win commands' => [
-                1.0,
                 $this->getWinCommands()
             ],
 
             'walk through map' => [
-                1.0,
                 [
                     [
                         'set-sail south', Messages::harbor(2)
@@ -115,7 +111,7 @@ final class GameTest extends TestCase
             ],
 
             'exceptional cases' => [
-                1.0, [
+                [
                     [
                         'set-sail east', Messages::errors('incorrect_direction')
                     ],
@@ -144,7 +140,7 @@ final class GameTest extends TestCase
             ],
 
             'loose battle' => [
-                1.0, [
+                [
                     [
                         'set-sail south', Messages::harbor(2)
                     ],
