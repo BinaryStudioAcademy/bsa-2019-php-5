@@ -1,6 +1,5 @@
-    
 .vscode
 .idea
 .phpunit.result.cache
 vendor
-*.log
+xdebug.log
