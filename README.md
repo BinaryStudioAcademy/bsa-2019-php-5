@@ -14,7 +14,7 @@
 
 ```bash
 git clone https://github.com/BinaryStudioAcademy/bsa-2019-php-5.git
-cd bsa-2019-php-4
+cd bsa-2019-php-5
 composer install
 ```
 
