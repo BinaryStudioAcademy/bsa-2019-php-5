@@ -1,6 +1,6 @@
 # Binary Studio Academy 2019
 
-## Домашнє завдання #4 ([ru](README.md))
+## Домашнє завдання #5 ([ru](README.md))
 
 ### Вимоги
 
@@ -12,7 +12,7 @@
 Інсталяція показана в робочому оточенні OS Linux:
 
 ```bash
-git clone https://github.com/BinaryStudioAcademy/bsa-2019-php-4.git
+git clone https://github.com/BinaryStudioAcademy/bsa-2019-php-5.git
 cd bsa-2019-php-4
 composer install
 ```
