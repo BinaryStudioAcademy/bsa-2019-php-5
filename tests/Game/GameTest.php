@@ -66,7 +66,7 @@ final class GameTest extends TestCase
                         'whereami', Messages::whereAmI(3)
                     ],
                     [
-                        'set-sail north', Messages::whereAmI(4)
+                        'set-sail north', Messages::harbor(4)
                     ],
                     [
                         'whereami', Messages::whereAmI(4)
