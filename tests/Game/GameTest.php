@@ -22,7 +22,7 @@ final class GameTest extends TestCase
         foreach ($commands as [ $command, $expectedOutput]) {
             $output = $gameTester->run($command);
 
-            $this->assertStringContainsString(trim($expectedOutput), trim($output));
+            $this->assertEquals(trim($expectedOutput), trim($output));
         }
     }
 
