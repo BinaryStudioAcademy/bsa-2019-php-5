@@ -36,7 +36,7 @@ final class Messages
 
     const HARBORS = [
         1 => [
-            'name' => 'Pirates Hardbor',
+            'name' => 'Pirates Harbor',
             'ship' => 'player'
         ],
         2 => [
